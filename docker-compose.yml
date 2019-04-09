@@ -1,0 +1,16 @@
+version: '3'
+services:
+  awsiot-device:
+    container_name: awsiot-device
+    image: ses2/python:3.7-alpine-awsiot
+    environment:
+      - IOT_ARN=$IOT_ARN
+      - ROOT_CA=/app/root-CA.crt
+      - CLIENT_CERT=/app/cert/cert.pem
+      - PRIVATE_KEY=/app/cert/private.key
+      - PUBLIC_KEY=/app/cert/public.key
+    # python aws-iot-device-sdk-python/samples/basicPubSub/basicPubSub.py -e $IOT_ARN -r $ROOT_CA -c $CLIENT_CERT -k $PRIVATE_KEY
+    tty: true
+    volumes:
+      - ./cert:/app/cert
+      - ./src:/app/src
